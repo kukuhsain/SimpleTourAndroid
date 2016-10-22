@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SimpleTour.iml" filepath="$PROJECT_DIR$/SimpleTour.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SimpleTourGuestAndroid.iml" filepath="$PROJECT_DIR$/SimpleTourGuestAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
