@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.guest.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +60,7 @@ public class PackagesActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvPackages.setLayoutManager(layoutManager);
 
-        packageAdapter = new PackageAdapter(generateDummyData());
+        packageAdapter = new PackageAdapter(this, generateDummyData());
         rvPackages.setAdapter(packageAdapter);
     }
 
@@ -69,5 +70,11 @@ public class PackagesActivity extends AppCompatActivity {
             dummyData.add("Lorem Ipsum dummy data #"+i);
         }
         return dummyData;
+    }
+
+    public void onItemClicked(String onePackage) {
+        Intent intent = new Intent(this, ReservationActivity.class);
+        /*intent.putExtra("destination", (new Gson()).toJson(destination));*/
+        runOnUiThread(() -> startActivity(intent));
     }
 }

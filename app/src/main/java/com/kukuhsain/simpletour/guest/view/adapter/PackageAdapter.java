@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.guest.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kukuhsain.simpletour.guest.R;
+import com.kukuhsain.simpletour.guest.view.PackagesActivity;
 
 import java.util.List;
 
@@ -18,9 +20,11 @@ import butterknife.ButterKnife;
  */
 
 public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHolder> {
+    private Context context;
     private List<String> packages;
 
-    public PackageAdapter(List<String> packages) {
+    public PackageAdapter(Context context, List<String> packages) {
+        this.context = context;
         this.packages = packages;
     }
 
@@ -32,8 +36,11 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(String onePackage) {
+        public void bind(Context context, String onePackage) {
             tvPackage.setText(onePackage);
+            itemView.setOnClickListener(view -> {
+                ((PackagesActivity) context).onItemClicked(onePackage);
+            });
         }
     }
 
@@ -46,7 +53,7 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(packages.get(position));
+        holder.bind(context, packages.get(position));
     }
 
     @Override
