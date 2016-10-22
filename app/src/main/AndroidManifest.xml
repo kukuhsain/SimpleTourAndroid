@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".view.ReservationActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.ContactDetailsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
