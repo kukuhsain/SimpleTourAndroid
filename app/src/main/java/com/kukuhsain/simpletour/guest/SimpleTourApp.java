@@ -9,9 +9,16 @@ import timber.log.Timber;
  */
 
 public class SimpleTourApp extends Application {
+    private static SimpleTourApp INSTANCE;
+
+    public static SimpleTourApp getInstance() {
+        return INSTANCE;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        INSTANCE = this;
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
