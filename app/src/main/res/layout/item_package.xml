@@ -13,6 +13,7 @@
         android:padding="16dp">
 
         <ImageView
+            android:id="@+id/iv_list_image"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:src="@drawable/blue_person"/>
@@ -25,7 +26,7 @@
             android:layout_marginStart="88dp">
 
             <TextView
-                android:id="@+id/tv_package"
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Package Name"
@@ -33,6 +34,7 @@
                 android:textColor="@color/textDarkPrimary"/>
 
             <TextView
+                android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Package Description"
@@ -40,6 +42,7 @@
                 android:textColor="@color/textDarkSecondary"/>
 
             <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Package Price"

@@ -5,10 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kukuhsain.simpletour.guest.R;
 import com.kukuhsain.simpletour.guest.model.pojo.Package;
+import com.kukuhsain.simpletour.guest.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.guest.view.PackagesActivity;
 
 import java.util.List;
@@ -30,7 +33,10 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_package) TextView tvPackage;
+        @BindView(R.id.iv_list_image) ImageView ivListImage;
+        @BindView(R.id.tv_name) TextView tvName;
+        @BindView(R.id.tv_description) TextView tvDescription;
+        @BindView(R.id.tv_price) TextView tvPrice;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -38,7 +44,12 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
         }
 
         public void bind(Context context, Package onePackage) {
-            tvPackage.setText(onePackage.getTitle());
+            tvName.setText(onePackage.getTitle());
+            tvDescription.setText(onePackage.getContent());
+            tvPrice.setText(""+onePackage.getPrice());
+            Glide.with(context)
+                    .load(SimpleTourApi.BASE_URL+onePackage.getImageUrl())
+                    .into(ivListImage);
             itemView.setOnClickListener(view -> {
                 ((PackagesActivity) context).onItemClicked(onePackage);
             });
