@@ -21,8 +21,8 @@ import rx.Observable;
  */
 
 public class SimpleTourApi {
-    public static final String BASE_URL = "http://simple-tour.appspot.com";
-//    public static final String BASE_URL = "http://122cdcb4.ngrok.io";
+//    public static final String BASE_URL = "http://simple-tour.appspot.com";
+    public static final String BASE_URL = "http://122cdcb4.ngrok.io";
     private static SimpleTourApi INSTANCE;
     private static ApiEndpoint api;
 
@@ -57,7 +57,7 @@ public class SimpleTourApi {
 
     private interface ApiEndpoint {
         @FormUrlEncoded
-        @POST("/user/register")
+        @POST("/guest/register")
         Observable<JsonObject> register(@Field("name") String name,
                                         @Field("email") String email,
                                         @Field("password") String password,
