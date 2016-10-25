@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kukuhsain.simpletour.guest.R;
+import com.kukuhsain.simpletour.guest.model.pojo.Package;
 import com.kukuhsain.simpletour.guest.view.PackagesActivity;
 
 import java.util.List;
@@ -21,9 +22,9 @@ import butterknife.ButterKnife;
 
 public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHolder> {
     private Context context;
-    private List<String> packages;
+    private List<Package> packages;
 
-    public PackageAdapter(Context context, List<String> packages) {
+    public PackageAdapter(Context context, List<Package> packages) {
         this.context = context;
         this.packages = packages;
     }
@@ -36,8 +37,8 @@ public class PackageAdapter extends RecyclerView.Adapter<PackageAdapter.ViewHold
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(Context context, String onePackage) {
-            tvPackage.setText(onePackage);
+        public void bind(Context context, Package onePackage) {
+            tvPackage.setText(onePackage.getTitle());
             itemView.setOnClickListener(view -> {
                 ((PackagesActivity) context).onItemClicked(onePackage);
             });

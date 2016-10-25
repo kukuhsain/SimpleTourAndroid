@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.guest.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.kukuhsain.simpletour.guest.R;
 import com.kukuhsain.simpletour.guest.model.pojo.Destination;
+import com.kukuhsain.simpletour.guest.model.pojo.Package;
 import com.kukuhsain.simpletour.guest.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.guest.view.adapter.PackageAdapter;
 
@@ -22,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by kukuh on 08/10/16.
@@ -34,6 +38,8 @@ public class PackagesActivity extends AppCompatActivity {
     @BindView(R.id.tv_description) TextView tvDescription;
     @BindView(R.id.rv_packages) RecyclerView rvPackages;
 
+    private Destination destination;
+    private ProgressDialog progressDialog;
     private PackageAdapter packageAdapter;
 
     @Override
@@ -46,7 +52,8 @@ public class PackagesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String destinationString = getIntent().getStringExtra("destination");
-        Destination destination = (new Gson()).fromJson(destinationString, Destination.class);
+        destination = (new Gson()).fromJson(destinationString, Destination.class);
+
         collapsingToolbarLayout.setTitle(destination.getTitle());
         tvDescription.setText(destination.getContent());
         Glide.with(this)
@@ -60,8 +67,32 @@ public class PackagesActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvPackages.setLayoutManager(layoutManager);
 
-        packageAdapter = new PackageAdapter(this, generateDummyData());
-        rvPackages.setAdapter(packageAdapter);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SimpleTourApi.getInstance().getPackages(destination.getDestinationId())
+                .subscribeOn(Schedulers.io())
+                .subscribe(packages -> {
+                    packageAdapter = new PackageAdapter(this, packages);
+                    runOnUiThread(() -> {
+                        rvPackages.setAdapter(packageAdapter);
+                        if (progressDialog.isShowing()) {
+                            progressDialog.hide();
+                        }
+                    });
+                }, throwable -> {
+                    Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (progressDialog.isShowing()) {
+                        progressDialog.hide();
+                    }
+                });
     }
 
     private List<String> generateDummyData() {
@@ -72,7 +103,7 @@ public class PackagesActivity extends AppCompatActivity {
         return dummyData;
     }
 
-    public void onItemClicked(String onePackage) {
+    public void onItemClicked(Package onePackage) {
         Intent intent = new Intent(this, ReservationActivity.class);
         /*intent.putExtra("destination", (new Gson()).toJson(destination));*/
         runOnUiThread(() -> startActivity(intent));

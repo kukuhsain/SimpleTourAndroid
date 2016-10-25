@@ -5,26 +5,26 @@ package com.kukuhsain.simpletour.guest.model.pojo;
  */
 
 public class Package {
-    private String name;
-    private String description;
+    private String title;
+    private String content;
     private String imageUrl;
     private String location;
     private Double price;
 
-    public Package(String description, String imageUrl, String location, String name, Double price) {
-        this.description = description;
+    public Package(String content, String imageUrl, String location, String title, Double price) {
+        this.content = content;
         this.imageUrl = imageUrl;
         this.location = location;
-        this.name = name;
+        this.title = title;
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getImageUrl() {
@@ -43,12 +43,12 @@ public class Package {
         this.location = location;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Double getPrice() {
