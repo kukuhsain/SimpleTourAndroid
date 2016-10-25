@@ -32,4 +32,12 @@ public class PreferencesHelper {
     public String getAccessToken() {
         return sharedPreferences.getString("accessToken", "");
     }
+
+    public void putLoggedInStatus(boolean loggedInStatus) {
+        sharedPreferences.edit().putBoolean("loggedInStatus", loggedInStatus);
+    }
+
+    public boolean getLoggedInStatus() {
+        return sharedPreferences.getBoolean("loggedInStatus", false);
+    }
 }
