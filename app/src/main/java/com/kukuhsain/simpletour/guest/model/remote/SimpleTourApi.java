@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.guest.model.remote;
 
+import com.google.gson.JsonObject;
 import com.kukuhsain.simpletour.guest.model.pojo.Destination;
 import com.kukuhsain.simpletour.guest.model.pojo.Package;
 
@@ -8,7 +9,10 @@ import java.util.List;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
 
@@ -39,6 +43,10 @@ public class SimpleTourApi {
         return INSTANCE;
     }
 
+    public Observable<JsonObject> register(String name, String email, String password, String phone) {
+        return api.register(name, email, password, phone);
+    }
+
     public Observable<List<Destination>> getDestinations() {
         return api.getDestinations();
     }
@@ -48,6 +56,13 @@ public class SimpleTourApi {
     }
 
     private interface ApiEndpoint {
+        @FormUrlEncoded
+        @POST("/user/register")
+        Observable<JsonObject> register(@Field("name") String name,
+                                        @Field("email") String email,
+                                        @Field("password") String password,
+                                        @Field("phone") String phone);
+
         @GET("/destinations")
         Observable<List<Destination>> getDestinations();
 
