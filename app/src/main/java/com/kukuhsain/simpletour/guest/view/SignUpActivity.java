@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.widget.Toast;
 
 import com.kukuhsain.simpletour.guest.R;
+import com.kukuhsain.simpletour.guest.model.local.PreferencesHelper;
 import com.kukuhsain.simpletour.guest.model.remote.SimpleTourApi;
 
 import butterknife.BindView;
@@ -60,7 +61,9 @@ public class SignUpActivity extends AppCompatActivity {
             SimpleTourApi.getInstance()
                     .register(name, email, password, phone)
                     .subscribeOn(Schedulers.io())
-                    .subscribe(jsonObject -> {
+                    .subscribe(accessToken -> {
+                        PreferencesHelper.getInstance().putAccessToken(accessToken);
+                        PreferencesHelper.getInstance().putLoggedInStatus(true);
                         runOnUiThread(() -> {
                             dismissLoading();
                             startActivity(new Intent(this, DestinationsActivity.class));

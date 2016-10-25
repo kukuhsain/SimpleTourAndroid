@@ -21,8 +21,8 @@ import rx.Observable;
  */
 
 public class SimpleTourApi {
-//    public static final String BASE_URL = "http://simple-tour.appspot.com";
-    public static final String BASE_URL = "http://122cdcb4.ngrok.io";
+    public static final String BASE_URL = "http://simple-tour.appspot.com";
+//    public static final String BASE_URL = "http://122cdcb4.ngrok.io";
     private static SimpleTourApi INSTANCE;
     private static ApiEndpoint api;
 
@@ -43,8 +43,12 @@ public class SimpleTourApi {
         return INSTANCE;
     }
 
-    public Observable<JsonObject> register(String name, String email, String password, String phone) {
-        return api.register(name, email, password, phone);
+    public Observable<String> register(String name, String email, String password, String phone) {
+        return api.register(name, email, password, phone)
+                .map(jsonObject -> {
+                    String accessToken = jsonObject.get("accessToken").getAsString();
+                    return accessToken;
+                });
     }
 
     public Observable<List<Destination>> getDestinations() {
