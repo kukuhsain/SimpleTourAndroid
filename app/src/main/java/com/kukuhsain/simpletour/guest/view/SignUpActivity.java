@@ -38,8 +38,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_sign_up)
     public void signUp() {
-        showLoading();
-
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
@@ -58,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
             etPhone.setError("Please insert a valid phone number!");
             etPhone.requestFocus();
         } else {
+            showLoading();
             SimpleTourApi.getInstance()
                     .register(name, email, password, phone)
                     .subscribeOn(Schedulers.io())

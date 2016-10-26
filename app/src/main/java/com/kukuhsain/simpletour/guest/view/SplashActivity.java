@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kukuhsain.simpletour.guest.R;
+import com.kukuhsain.simpletour.guest.model.local.PreferencesHelper;
+
+import timber.log.Timber;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,6 +21,10 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Timber.d("accessToken...");
+        Timber.d(PreferencesHelper.getInstance().getAccessToken());
+        Timber.d("loggedInStatus");
+        Timber.d(String.valueOf(PreferencesHelper.getInstance().getLoggedInStatus()));
         new Handler().postDelayed(() -> {
             startActivity(new Intent(SplashActivity.this, SignInActivity.class));
             finish();

@@ -34,7 +34,7 @@ public class PreferencesHelper {
     }
 
     public void putLoggedInStatus(boolean loggedInStatus) {
-        sharedPreferences.edit().putBoolean("loggedInStatus", loggedInStatus);
+        sharedPreferences.edit().putBoolean("loggedInStatus", loggedInStatus).apply();
     }
 
     public boolean getLoggedInStatus() {

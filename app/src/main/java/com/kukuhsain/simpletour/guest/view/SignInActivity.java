@@ -36,8 +36,6 @@ public class SignInActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_sign_in)
     public void signIn() {
-        showLoading();
-
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
@@ -48,6 +46,7 @@ public class SignInActivity extends AppCompatActivity {
             etPassword.setError("Please insert password!");
             etPassword.requestFocus();
         } else {
+            showLoading();
             SimpleTourApi.getInstance()
                     .login(email, password)
                     .subscribeOn(Schedulers.io())
