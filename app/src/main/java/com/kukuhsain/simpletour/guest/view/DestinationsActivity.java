@@ -9,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kukuhsain.simpletour.guest.R;
+import com.kukuhsain.simpletour.guest.model.local.PreferencesHelper;
 import com.kukuhsain.simpletour.guest.model.pojo.Destination;
 import com.kukuhsain.simpletour.guest.model.remote.SimpleTourApi;
 import com.kukuhsain.simpletour.guest.view.adapter.DestinationAdapter;
@@ -89,5 +91,16 @@ public class DestinationsActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_sign_out:
+                PreferencesHelper.getInstance().clearData();
+                startActivity(new Intent(this, SignInActivity.class));
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

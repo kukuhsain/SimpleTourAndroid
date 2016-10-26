@@ -40,4 +40,8 @@ public class PreferencesHelper {
     public boolean getLoggedInStatus() {
         return sharedPreferences.getBoolean("loggedInStatus", false);
     }
+
+    public void clearData() {
+        sharedPreferences.edit().clear().apply();
+    }
 }
