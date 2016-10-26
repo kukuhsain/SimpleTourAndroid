@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -24,6 +27,7 @@ import timber.log.Timber;
  */
 
 public class DestinationsActivity extends AppCompatActivity {
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.rv_destinations) RecyclerView rvDestinations;
 
     RecyclerView.LayoutManager rvLayoutManager;
@@ -44,6 +48,9 @@ public class DestinationsActivity extends AppCompatActivity {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Destinations");
     }
 
     @Override
@@ -75,5 +82,12 @@ public class DestinationsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PackagesActivity.class);
         intent.putExtra("destination", (new Gson()).toJson(destination));
         runOnUiThread(() -> startActivity(intent));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
