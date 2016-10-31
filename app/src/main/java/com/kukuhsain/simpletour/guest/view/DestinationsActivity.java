@@ -89,17 +89,28 @@ public class DestinationsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
+        if (PreferencesHelper.getInstance().getLoggedInStatus()) {
+            menuInflater.inflate(R.menu.menu_logged_in, menu);
+        } else {
+            menuInflater.inflate(R.menu.menu_not_logged_in, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_sign_in:
+                startActivity(new Intent(this, SignInActivity.class));
+                break;
+            case R.id.btn_sign_up:
+                startActivity(new Intent(this, SignUpActivity.class));
+                break;
             case R.id.menu_sign_out:
                 PreferencesHelper.getInstance().clearData();
                 startActivity(new Intent(this, SignInActivity.class));
                 finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

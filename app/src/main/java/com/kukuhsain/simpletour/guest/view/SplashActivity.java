@@ -26,13 +26,15 @@ public class SplashActivity extends AppCompatActivity {
         Timber.d("loggedInStatus");
         Timber.d(String.valueOf(PreferencesHelper.getInstance().getLoggedInStatus()));
         new Handler().postDelayed(() -> {
-            if (PreferencesHelper.getInstance().getLoggedInStatus()) {
+            /*if (PreferencesHelper.getInstance().getLoggedInStatus()) {
                 startActivity(new Intent(SplashActivity.this, DestinationsActivity.class));
                 finish();
             } else {
                 startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                 finish();
-            }
+            }*/
+            startActivity(new Intent(SplashActivity.this, DestinationsActivity.class));
+            finish();
         }, 2000);
     }
 }
