@@ -59,6 +59,7 @@
                 android:textColor="@color/textDarkHint"/>
 
             <TextView
+                android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description Lorem Ipsum"
@@ -80,6 +81,7 @@
                 android:textColor="@color/textDarkHint"/>
 
             <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$ 100 / Person"
@@ -101,6 +103,7 @@
                 android:textColor="@color/textDarkHint"/>
 
             <EditText
+                android:id="@+id/et_people"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="10"

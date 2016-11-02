@@ -105,7 +105,7 @@ public class PackagesActivity extends AppCompatActivity {
 
     public void onItemClicked(Package onePackage) {
         Intent intent = new Intent(this, ReservationActivity.class);
-        /*intent.putExtra("destination", (new Gson()).toJson(destination));*/
+        intent.putExtra("package", (new Gson()).toJson(onePackage));
         runOnUiThread(() -> startActivity(intent));
     }
 }
