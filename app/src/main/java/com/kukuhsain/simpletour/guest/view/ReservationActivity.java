@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.guest.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -61,6 +62,16 @@ public class ReservationActivity extends AppCompatActivity {
             btnSignGroup.setVisibility(View.VISIBLE);
             btnBook.setVisibility(View.GONE);
         }
+    }
+
+    @OnClick(R.id.btn_sign_up)
+    public void goToSignUp() {
+        startActivity(new Intent(this, SignUpActivity.class));
+    }
+
+    @OnClick(R.id.btn_sign_in)
+    public void goToSignIn() {
+        startActivity(new Intent(this, SignInActivity.class));
     }
 
     @OnClick(R.id.btn_book)

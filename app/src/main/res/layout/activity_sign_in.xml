@@ -65,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Sign Me Up Now"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:visibility="gone"/>
 
 </LinearLayout>
