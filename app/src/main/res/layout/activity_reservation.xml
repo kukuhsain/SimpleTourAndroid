@@ -109,6 +109,26 @@
                 android:hint="10"
                 android:textColorHint="@color/textDarkHint"/>
 
+            <LinearLayout
+                android:id="@+id/btn_sign_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Sign Up"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Sign In"/>
+
+            </LinearLayout>
+
             <Button
                 android:id="@+id/btn_book"
                 android:layout_width="match_parent"
