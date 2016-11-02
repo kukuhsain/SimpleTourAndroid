@@ -1,5 +1,6 @@
 package com.kukuhsain.simpletour.guest.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ public class ReservationActivity extends AppCompatActivity {
     @BindView(R.id.btn_sign_group) LinearLayout btnSignGroup;
     @BindView(R.id.btn_book) Button btnBook;
 
+    ProgressDialog progressDialog;
     Package onePackage;
 
     @Override
@@ -87,16 +89,24 @@ public class ReservationActivity extends AppCompatActivity {
                 .setTitle("Are You Sure?")
                 .setMessage("You are going to book this package. Are you sure?")
                 .setPositiveButton("Book", (dialogInterface, i) -> {
+                    showLoading();
                     SimpleTourApi.getInstance()
                             .bookPackage(onePackage.getPackageId(), numberOfPeople)
                             .subscribeOn(Schedulers.io())
                             .subscribe(reservation -> {
                                 Intent intent = new Intent(this, DestinationsActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                runOnUiThread(() -> startActivity(intent));
+                                runOnUiThread(() -> {
+                                    dismissLoading();
+                                    startActivity(intent);
+                                    Toast.makeText(this, "Reservation is successful...", Toast.LENGTH_LONG).show();
+                                });
                             }, throwable -> {
                                 throwable.printStackTrace();
-                                runOnUiThread(() -> Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show());
+                                runOnUiThread(() -> {
+                                    dismissLoading();
+                                    Toast.makeText(this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
                             });
                     dialogInterface.dismiss();
                 })
@@ -105,5 +115,21 @@ public class ReservationActivity extends AppCompatActivity {
                 })
                 .create()
                 .show();
+    }
+
+    private void showLoading() {
+        if (progressDialog != null) {
+            progressDialog.show();
+        } else {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+        }
+    }
+
+    private void dismissLoading() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 }
