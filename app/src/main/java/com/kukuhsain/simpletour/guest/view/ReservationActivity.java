@@ -81,7 +81,13 @@ public class ReservationActivity extends AppCompatActivity {
         /*startActivity(intent);*/
         new AlertDialog.Builder(this)
                 .setTitle("Are You Sure?")
-                .setMessage("You are going to reserve this package. Are you sure?")
+                .setMessage("You are going to book this package. Are you sure?")
+                .setPositiveButton("Book", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                })
+                .setNegativeButton("Cancel", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                })
                 .create()
                 .show();
     }
